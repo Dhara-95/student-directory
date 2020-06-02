@@ -15,7 +15,11 @@ def input_students
       cohort << ("June")
     end
     students << {name: name, cohort: cohort.to_sym, age: age}
-    puts "Now we have #{students.count} students"
+    if students.count <= 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     #get another name and cohort from the user
     name = gets.chomp
     cohort = gets.chomp
