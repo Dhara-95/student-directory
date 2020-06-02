@@ -21,7 +21,7 @@ end
 
 def print_header
   puts "The students of Villains Academy"
-  puts "-------------"
+  puts "-------------".center(30)
 end
 
 def print(students)
