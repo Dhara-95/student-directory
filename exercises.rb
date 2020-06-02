@@ -31,10 +31,16 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index do |student, index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort), #{student[:age]} yrs old"
+  students_by_cohort = {}
+  students.each do |student|
+    name = student[:name]
+    cohort = student[:cohort]
+    students_by_cohort[cohort] ||= []
+    students_by_cohort[cohort].push(name)
   end
-  students
+  students_by_cohort.each do |cohort, name|
+    puts "Students for #{cohort}: #{name.join(", ")}"
+  end
 end
 
 def print_footer(students)
