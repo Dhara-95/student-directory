@@ -1,17 +1,3 @@
-#put all the students into an array
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleon", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
-]
 #define the methods to print them
 def input_students
   puts "Please enter the names of the students"
@@ -23,7 +9,8 @@ def input_students
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, age: :"25",
+      hobby: :"fighting crime"}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
@@ -41,7 +28,8 @@ def print(students)
   while students.length < 12 do
     students.each_with_index do |student, index|
       if student[:name].chr == "D" && student[:name].length < 12
-        puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+        puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort),
+        #{student[:age]} yrs old, hobbies include #{student[:hobby]}"
       end
     end
     break
