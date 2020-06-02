@@ -1,13 +1,16 @@
 #define the methods to print them
 def input_students
-  puts "Please enter the names of the students, their cohort and age"
-  puts "To finish, just hit return four times"
+  puts "Please enter the names of the students."
+  puts "To finish, just hit return until you see the list of names."
   #create an empty array
   students = []
   #get the first name
-  name = gets.chomp
-  cohort = gets.chomp
-  age = gets.chomp
+  puts "Enter name: "
+  name = gets.strip
+  puts "Enter cohort: "
+  cohort = gets.strip
+  puts "Enter age: "
+  age = gets.strip
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add student hash to the array
@@ -21,9 +24,12 @@ def input_students
       puts "Now we have #{students.count} students"
     end
     #get another name and cohort from the user
-    name = gets.chomp
-    cohort = gets.chomp
-    age = gets.chomp
+    puts "Enter name: "
+    name = gets.strip
+    puts "Enter cohort: "
+    cohort = gets.strip
+    puts "Enter age: "
+    age = gets.strip
   end
   #return the array of students
   students
@@ -35,20 +41,13 @@ def print_header
 end
 
 def print(students)
-  students_by_cohort = {}
   students.each do |student|
-    name = student[:name]
-    cohort = student[:cohort]
-    students_by_cohort[cohort] ||= []
-    students_by_cohort[cohort].push(name)
-  end
-  students_by_cohort.each do |cohort, name|
-    puts "Students for #{cohort}: #{name.join(", ")}"
+    puts "#{student[:name]} (#{student[:cohort]} cohort, #{student[:age]}yrs)"
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students."
 end
 #nothing happens until we call the methods
 students = input_students
