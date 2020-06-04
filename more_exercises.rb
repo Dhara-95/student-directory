@@ -26,9 +26,11 @@ def process(selection)
   when "2"
     show_students
   when "3"
+    puts "Please enter file to save to: "
     save_students
     puts "Students have been saved successfully"
   when "4"
+    puts "Please enter which file to load: "
     load_students
     puts "Students have been loaded successfully"
   when "9"
@@ -80,27 +82,31 @@ def print_footer
 end
 
 def save_students
+  user_input = STDIN.gets.chomp
   #open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open("#{user_input}", "w") do |file|
   #iterate over teh array of students
   @students.each do |student|
     student_data = [student[:name]], [student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-  file.close
+end
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  user_input = STDIN.gets.chomp
+  file = File.open(filename, "r") do |file|
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     students_array(name, cohort)
   end
-  file.close
+end
 end
 
 def try_load_students
+  #ask user for filename to load
+  puts "Please enter file to load"
   filename = ARGV.first #first argument from the command line
   if filename.nil? #get out of the method if it isn't given
     filename = "students.csv"
