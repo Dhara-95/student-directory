@@ -26,11 +26,11 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    puts "Enter file to save to: "
+    puts "Please enter file to save to: "
     save_students(STDIN.gets.chomp)
     puts "Students have been saved successfully"
   when "4"
-    puts "Enter a file to load: "
+    puts "Please enter a file to load: "
     load_students(STDIN.gets.chomp)
     puts "Students have been loaded successfully"
   when "9"
