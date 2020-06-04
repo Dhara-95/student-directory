@@ -22,13 +22,17 @@ def process(selection)
   case selection
   when "1"
     input_students
+    puts "Your input was successful"
   when "2"
     show_students
   when "3"
     save_students
+    puts "Students have been saved successfully"
   when "4"
     load_students
+    puts "Students have been loaded successfully"
   when "9"
+    puts "Thank you, goodbye"
     exit #this will cause the program to terminate
   else
     puts "I don't know what you mean, try again"
