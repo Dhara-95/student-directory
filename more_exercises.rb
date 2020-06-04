@@ -26,12 +26,12 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    puts "Please enter file to save to: "
-    save_students
+    puts "Enter file to save to: "
+    save_students(STDIN.gets.chomp)
     puts "Students have been saved successfully"
   when "4"
-    puts "Please enter which file to load: "
-    load_students
+    puts "Enter a file to load: "
+    load_students(STDIN.gets.chomp)
     puts "Students have been loaded successfully"
   when "9"
     puts "Thank you, goodbye"
@@ -41,8 +41,8 @@ def process(selection)
   end
 end
 
-def students_array(name, cohort = "november")
-  @students << {name: name, cohort: cohort.to_sym}
+def add_students(name, cohort) #add the hash to @students array
+  @students << {name: name, cohort: "November"}
 end
 
 def input_students
@@ -53,7 +53,8 @@ def input_students
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add student hash to the array
-    students_array(name)
+    name, cohort = name.split(",")
+    add_students(name, cohort)
     puts "Now we have #{@students.count} students"
     #get another name from the user
     name = STDIN.gets.chomp
@@ -77,47 +78,43 @@ def print_student_list
   end
 end
 
+
 def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students
-  user_input = STDIN.gets.chomp
+def save_students(filename)
+  require "csv"
   #open the file for writing
-  file = File.open("#{user_input}", "w") do |file|
-  #iterate over teh array of students
-  @students.each do |student|
-    student_data = [student[:name]], [student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  CSV.open(filename, "w") do |csv|
+  #iterate over the array of students
+    @students.each do |student|
+      student_data = [student[:name]], [student[:cohort]]
+      csv << student_data
+    end
   end
-end
 end
 
-def load_students(filename = "students.csv")
-  user_input = STDIN.gets.chomp
-  file = File.open(filename, "r") do |file|
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(",")
-    students_array(name, cohort)
+def load_students(filename)
+  require "csv"
+  CSV.foreach(filename, "r") do |line|
+      name, cohort = line
+      add_students(name, cohort)
   end
 end
-end
+
 
 def try_load_students
-  #ask user for filename to load
-  puts "Please enter file to load"
   filename = ARGV.first #first argument from the command line
-  if filename.nil? #get out of the method if it isn't given
-    filename = "students.csv"
-  if File.exists?(filename) #if it exists
+  if filename.nil?
+    load_students("students.csv")
+  elsif File.exists?(filename) #if it exists
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else #if it doesn't exists
+    puts "Loaded #{students.count} from #{filename}"
+  else
     puts "Sorry, #{filename} doesn't exist. Goodbye"
     exit #quit the program
   end
-end
 end
 
 #nothing happens until we call the methods
