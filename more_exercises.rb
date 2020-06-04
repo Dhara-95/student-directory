@@ -6,6 +6,7 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
+  puts "5. Print source code"
   puts "9. Exit"
 end
 
@@ -33,6 +34,9 @@ def process(selection)
     puts "Please enter a file to load: "
     load_students(STDIN.gets.chomp)
     puts "Students have been loaded successfully"
+  when "5"
+    puts "Source code: "
+    print_source_code
   when "9"
     puts "Thank you, goodbye"
     exit #this will cause the program to terminate
@@ -115,6 +119,10 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist. Goodbye"
     exit #quit the program
   end
+end
+
+def print_source_code
+  puts File.read($0)
 end
 
 #nothing happens until we call the methods
